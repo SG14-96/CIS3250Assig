@@ -1,0 +1,46 @@
+from Tkinter import *
+
+def GUI():
+    root = Tk()
+
+    frame = Frame(root)
+
+    labelText = StringVar()
+
+    label = Label(frame, textvariable=labelText)
+    button = Button(frame, text="CLick Me!")
+
+    labelText.set("I am a label")
+
+    label.pack()
+    button.pack()
+    frame.pack()
+
+    root.mainloop()
+#----------functions for GUI--------------------------#
+
+#-----------------------------------------------------#
+def solveFile():
+    print("Work on this.")
+#--------------Functions for CLI----------------------#
+
+#-----------Start Menu--------------------------------#
+usrInput = 0
+while usrInput != 3:
+    print("Choose on of the two modes: ")
+    print("1.Graphing mode.")
+    print("2.Answer mode.")
+    print("3.Quit program.")
+
+    usrInput = input()
+
+    if usrInput == 1:
+        GUI()
+    elif usrInput == 2:
+        solveFile()
+    elif usrInput == 3:
+        print("Quitting program.......")
+    else:
+        print("Please try again.")
+#----------------------------------------------------#
+
