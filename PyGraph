@@ -2,19 +2,21 @@ from Tkinter import *
 
 def GUI():
     root = Tk()
+    root.resizable(width=False, height=False)
+    root.geometry('{}x{}'.format(800, 800))
 
-    frame = Frame(root)
+    buttonFrame = Frame(master=root,bg="blue",height = 100,width = 800)
+    buttonFrame.grid(row = 100,column = 0)
 
-    labelText = StringVar()
+    canvas = Canvas(root, height=700, width=700)
+    canvas.grid(row = 0,column = 0)
 
-    label = Label(frame, textvariable=labelText)
-    button = Button(frame, text="CLick Me!")
+    resetB = Button(buttonFrame,text="Reset Grapher") #add command later,  command = not.
+    resetB.grid(row=101,column=0)
 
-    labelText.set("I am a label")
+    graph = Button(buttonFrame,text="Graph")
+    graph.grid(row=102,column=0)
 
-    label.pack()
-    button.pack()
-    frame.pack()
 
     root.mainloop()
 #----------functions for GUI--------------------------#
