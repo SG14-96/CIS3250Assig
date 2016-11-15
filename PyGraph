@@ -1,30 +1,142 @@
+#!/usr/bin/python
 from Tkinter import *
+import tkMessageBox
 
 def GUI():
     root = Tk()
     root.resizable(width=False, height=False)
-    root.geometry('{}x{}'.format(800, 800))
-
-    buttonFrame = Frame(master=root,bg="blue",height = 100,width = 800)
-    buttonFrame.grid(row = 100,column = 0)
+    root.geometry('{}x{}'.format(715, 800))
 
     canvas = Canvas(root, height=700, width=700)
     canvas.grid(row = 0,column = 0)
+    canvas.configure(background = "blue")
+    #buttons
+    resetB = Button(root, text="Reset Grapher")  # add command later,  command = not.
+    resetB.grid(row = 1,column = 0)
 
-    resetB = Button(buttonFrame,text="Reset Grapher") #add command later,  command = not.
-    resetB.grid(row=101,column=0)
-
-    graph = Button(buttonFrame,text="Graph")
-    graph.grid(row=102,column=0)
+    graph = Button(root,text="Graph")
+    graph.grid(row = 2,column = 0)
 
 
     root.mainloop()
-#----------functions for GUI--------------------------#
 
-#-----------------------------------------------------#
+
+#------------------File solving----------------------------#
 def solveFile():
+    inputFile = file("inputFile.txt")
+
+    for line in inputFile:
+        print line
+
+    #iterate through line by line.
+    #check to see if its valid.
+    #calulate expression.
     print("Work on this.")
-#--------------Functions for CLI----------------------#
+
+#---------------ComputeSolution----------------#
+def computeEx(expression):
+    print "Solve expression here."
+#--------------Validation----------------------#
+def validateExpression(expression):
+
+    result = 0
+
+    num = expression.count(')')
+    num2 = expression.count('(')
+
+    opr1 = expression.count('+')
+    opr2 = expression.count('-')
+    opr3 = expression.count('*')
+    opr4 = expression.count('/')
+
+    if (opr1 == 0 and opr2 == 0 and opr3 == 0 and opr4 == 0):
+        result = 1
+
+    elif (num != num2):
+        result = 2
+
+    else:
+        length = len(expression)
+
+        for x in range(0, length):
+            if (expression[0] == '+' or expression[0] == '-' or expression[0] == '/' or expression[0] == '*'):
+                result = 1
+                break
+
+            if (expression[length - 1] == '+' or expression[length - 1] == '-' or expression[length - 1] == '/' or
+                        expression[length - 1] == '*'):
+                result = 1
+                break
+
+            if (expression[x] == '+' or expression[x] == '-' or expression[x] == '/' or expression[x] == '*'):
+
+                if (expression[x - 1] != '0' and expression[x - 1] != '1' and expression[x - 1] != '2' and expression[
+                        x - 1] != '3' and expression[x - 1] != '4' and expression[x - 1] != '5'
+                    and expression[x - 1] != '6' and expression[x - 1] != '7' and expression[x - 1] != '8' and
+                            expression[x - 1] != '9' and expression[x - 1] != 'a' and expression[x - 1] != 'b'
+                    and expression[x - 1] != 'c' and expression[x - 1] != 'd' and expression[x - 1] != 'e' and
+                            expression[x - 1] != 'f' and expression[x - 1] != 'g' and expression[x - 1] != 'h'
+                    and expression[x - 1] != 'i' and expression[x - 1] != 'j' and expression[x - 1] != 'k' and
+                            expression[x - 1] != 'l' and expression[x - 1] != 'm' and expression[x - 1] != 'n'
+                    and expression[x - 1] != 'o' and expression[x - 1] != 'p' and expression[x - 1] != 'q' and
+                            expression[x - 1] != 'r' and expression[x - 1] != 's' and expression[x - 1] != 't'
+                    and expression[x - 1] != 'u' and expression[x - 1] != 'v' and expression[x - 1] != 'w' and
+                            expression[x - 1] != 'x' and expression[x - 1] != 'y' and expression[x - 1] != 'z'
+                    and expression[x - 1] != ')' and expression[x - 1] != ' '):
+                    result = 1
+                    break
+
+                elif (expression[x + 1] != '0' and expression[x + 1] != '1' and expression[x + 1] != '2' and expression[
+                        x + 1] != '3' and expression[x + 1] != '4' and expression[x + 1] != '5'
+                      and expression[x + 1] != '6' and expression[x + 1] != '7' and expression[x + 1] != '8' and
+                              expression[x + 1] != '9' and expression[x + 1] != 'a' and expression[x + 1] != 'b'
+                      and expression[x + 1] != 'c' and expression[x + 1] != 'd' and expression[x + 1] != 'e' and
+                              expression[x + 1] != 'f' and expression[x + 1] != 'g' and expression[x + 1] != 'h'
+                      and expression[x + 1] != 'i' and expression[x + 1] != 'j' and expression[x + 1] != 'k' and
+                              expression[x + 1] != 'l' and expression[x + 1] != 'm' and expression[x + 1] != 'n'
+                      and expression[x + 1] != 'o' and expression[x + 1] != 'p' and expression[x + 1] != 'q' and
+                              expression[x + 1] != 'r' and expression[x + 1] != 's' and expression[x + 1] != 't'
+                      and expression[x + 1] != 'u' and expression[x + 1] != 'v' and expression[x + 1] != 'w' and
+                              expression[x + 1] != 'x' and expression[x + 1] != 'y' and expression[x + 1] != 'z'
+                      and expression[x + 1] != '(' and expression[x + 1] != ' '):
+                    result = 1
+                    break
+
+                elif ((expression[x - 1] == ')') and (expression[x - 2].isdigit() or expression[x - 2].isalpha())):
+                    result = 0
+
+            elif (expression[x] == '(' and x != 0):
+                if (expression[x - 1].isdigit() or expression[x - 1] == ')'):
+                    result = 1
+                    break
+
+                elif (expression[x - 1] == ' '):
+                    if (expression[x - 2].isdigit() or expression[x - 2] == ')'):
+                        result = 1
+                        break
+
+            elif (expression[x] == ')' and x != (length - 1)):
+                if (expression[x + 1].isdigit() or expression[x + 1] == '('):
+                    result = 1
+                    break
+
+                elif (expression[x + 1] == ' '):
+                    if (expression[x + 2].isdigit() or expression[x + 2] == ')'):
+                        result = 1
+                        break
+
+            else:
+                result = 0
+
+    if (result == 2):
+        tkMessageBox._showinfo("Result", "An invalid arithmetic expression: mismatch parentheses")
+
+    elif (result == 1):
+        tkMessageBox.showinfo ("Result", "An invalid arithmetic expression: missing arithmetic operators/operands")
+
+    elif (result == 0):
+        tkMessageBox.showinfo ("Result", "A valid arithmetic expression")
+
 
 #-----------Start Menu--------------------------------#
 usrInput = 0
