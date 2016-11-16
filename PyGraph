@@ -2,56 +2,15 @@
 from Tkinter import *
 import tkMessageBox
 
-def GUI():
-    root = Tk()
-
-    def graphFunc():
-        #this graphs the funtion.Draws it on the the canvs.
-        pass
-
-    def resetClean():
-        expressionEntry.delete(0,'end')
-        rangeEntry.delete(0,'end')
-        #clean plot.
-        pass
-
-
-    root.resizable(width=False, height=False)
-    root.geometry('{}x{}'.format(715, 800))
-
-    # buttons
-    resetB = Button(root, text="Reset Grapher",command = resetClean)
-    resetB.grid(row=1, column=0)
-
-    graph = Button(root, text="Graph", command = graphFunc)
-    graph.grid(row=0, column=0)
-
-    #Labels
-    enterExpression = Label(root,text="Enter Expression:")
-    enterExpression.grid(row = 0, column = 1)
-    enterRange = Label(root,text="Enter Range(int):")
-    enterRange.grid(row = 1, column = 1)
-    #Entries
-    expressionEntry = Entry(root,state = NORMAL)
-    expressionEntry.grid(row =0, column = 2)
-    rangeEntry = Entry(root,state = NORMAL)
-    rangeEntry.grid(row=1, column =2)
-
-
-    root.mainloop()
 
 
 #------------------File solving----------------------------#
 def solveFile():
-    inputFile = file("inputFile.txt")
-
-    for line in inputFile:
-        print line
+    pass
 
     #iterate through line by line.
     #check to see if its valid.
     #calulate expression.
-    print("Work on this.")
 
 #---------------ComputeSolution----------------#
 def computeEx(expression):
@@ -169,7 +128,60 @@ while usrInput != 3:
     usrInput = input()
 
     if usrInput == 1:
-        GUI()
+        root = Tk()
+
+
+        def graphFunc():
+            expressionStr = expressionEntry.get()
+            range = rangeEntry.get()
+            rangeInt = int(range)
+
+            print expressionStr
+            print rangeInt
+            # this graphs the funtion.Draws it on the the canvs.
+            pass
+
+
+        def resetClean():
+            expressionEntry.delete(0, 'end')
+            rangeEntry.delete(0, 'end')
+            # clean plot.
+            pass
+
+
+        def solveFile():
+            inputFileName = fileEntry.get()
+
+
+
+        root.resizable(width=False, height=False)
+        root.geometry('{}x{}'.format(715, 800))
+
+        # buttons
+        resetB = Button(root, text="Reset Grapher", command=resetClean)
+        resetB.grid(row=1, column=0)
+
+        graph = Button(root, text="Graph", command=graphFunc)
+        graph.grid(row=0, column=0)
+
+        fileSolve = Button(root, text="Solve File", command=solveFile)
+        fileSolve.grid(row=0, column=4)
+
+        # Labels
+        enterExpression = Label(root, text="Enter Expression:")
+        enterExpression.grid(row=0, column=1)
+        enterRange = Label(root, text="Enter Range(int):")
+        enterRange.grid(row=1, column=1)
+        # Entries
+        expressionEntry = Entry(root, state=NORMAL)
+        expressionEntry.grid(row=0, column=2)
+        rangeEntry = Entry(root, state=NORMAL)
+        rangeEntry.grid(row=1, column=2)
+        fileEntry = Entry(root, state=NORMAL)
+        fileEntry.grid(row=0, column=5)
+
+        root.mainloop()
+        exit()
     elif usrInput == 2:
         solveFile()
     elif usrInput == 3:
