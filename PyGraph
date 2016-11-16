@@ -4,18 +4,38 @@ import tkMessageBox
 
 def GUI():
     root = Tk()
+
+    def graphFunc():
+        #this graphs the funtion.Draws it on the the canvs.
+        pass
+
+    def resetClean():
+        expressionEntry.delete(0,'end')
+        rangeEntry.delete(0,'end')
+        #clean plot.
+        pass
+
+
     root.resizable(width=False, height=False)
     root.geometry('{}x{}'.format(715, 800))
 
-    canvas = Canvas(root, height=700, width=700)
-    canvas.grid(row = 0,column = 0)
-    canvas.configure(background = "blue")
-    #buttons
-    resetB = Button(root, text="Reset Grapher")  # add command later,  command = not.
-    resetB.grid(row = 1,column = 0)
+    # buttons
+    resetB = Button(root, text="Reset Grapher",command = resetClean)
+    resetB.grid(row=1, column=0)
 
-    graph = Button(root,text="Graph")
-    graph.grid(row = 2,column = 0)
+    graph = Button(root, text="Graph", command = graphFunc)
+    graph.grid(row=0, column=0)
+
+    #Labels
+    enterExpression = Label(root,text="Enter Expression:")
+    enterExpression.grid(row = 0, column = 1)
+    enterRange = Label(root,text="Enter Range(int):")
+    enterRange.grid(row = 1, column = 1)
+    #Entries
+    expressionEntry = Entry(root,state = NORMAL)
+    expressionEntry.grid(row =0, column = 2)
+    rangeEntry = Entry(root,state = NORMAL)
+    rangeEntry.grid(row=1, column =2)
 
 
     root.mainloop()
@@ -129,13 +149,13 @@ def validateExpression(expression):
                 result = 0
 
     if (result == 2):
-        tkMessageBox._showinfo("Result", "An invalid arithmetic expression: mismatch parentheses")
+        return ("Valid")
 
     elif (result == 1):
-        tkMessageBox.showinfo ("Result", "An invalid arithmetic expression: missing arithmetic operators/operands")
+        return ("Invalid")
 
     elif (result == 0):
-        tkMessageBox.showinfo ("Result", "A valid arithmetic expression")
+        return ("Valid")
 
 
 #-----------Start Menu--------------------------------#
@@ -157,4 +177,3 @@ while usrInput != 3:
     else:
         print("Please try again.")
 #----------------------------------------------------#
-
